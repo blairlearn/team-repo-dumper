@@ -1,5 +1,12 @@
-const GITHUB_TOKEN = process.env["GITHUB_TOKEN"];
 const https = require('https');
+const forEach =  require('array-foreach');
+
+const GITHUB_TOKEN = process.env["GITHUB_TOKEN"];
+
+if(!GITHUB_TOKEN) {
+    console.error("The GITHUB_TOKEN environment variable has not been set.");
+    process.abort();
+}
 
 GetTeams();
 
@@ -22,6 +29,7 @@ function GetTeams() {
         });
         res.on('end', () => {
             let teams = JSON.parse(teamData);
+
             teams.forEach(team => {
                 DumpReposForTeam(team.id, team.name);
             });
