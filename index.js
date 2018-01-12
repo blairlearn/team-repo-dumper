@@ -1,4 +1,4 @@
-var GITHUB_TOKEN = "{{PERSONAL ACCESS TOKEN GOES HERE}}}";
+var GITHUB_TOKEN = process.env["GITHUB_TOKEN"];
 
 const https = require('https');
 
