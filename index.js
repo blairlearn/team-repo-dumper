@@ -52,10 +52,21 @@ function DumpReposForTeam(teamid, teamName) {
             repoData += d;
         });
         res.on('end', () => {
+
+            process.stdout.write(`Repositories for '${teamName}':\n\n`);
+
             let repos = JSON.parse(repoData);
             repos.forEach(repo => {
-                console.log(repo.id + '\t' + repo.name);
+
+                let accessLevel = '';
+                if( repo["permissions"]["pull"]) accessLevel =  ' Read';
+                if( repo["permissions"]["push"]) accessLevel =  'Write';
+                if( repo["permissions"]["admin"]) accessLevel = 'Admin';
+
+                process.stdout.write(`\t${accessLevel} - ${repo.name}\n`);
             });
+
+            process.stdout.write('\n\n');
         });
     }).on('error', (e) => {
         console.error(e);
