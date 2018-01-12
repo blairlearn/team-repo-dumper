@@ -17,12 +17,19 @@ var options = {
 
 https.get(options, (res) => {
 
-    //console.log('statusCode:', res.statusCode);
-    //console.log('headers:', res.headers);
-
+    let teamData = '';
+    
     res.on('data', (d) => {
-        process.stdout.write(d);
+        teamData += d;
     });
+
+    res.on('end', () =>{
+        teams = JSON.parse(teamData);
+        teams.forEach(team => {
+            process.stdout.write(team.id + "\t" + team.name + "\n");
+        });
+
+    })
 
 }).on('error', (e) => {
     console.error(e);
