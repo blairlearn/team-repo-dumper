@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "array-foreach": "^1.0.2",
     "http-debug": "^0.1.2"
   }
 }
